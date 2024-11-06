@@ -13,7 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearch }) => {
       value={searchTerm}
       onChange={(e) => onSearch(e.target.value)}
       placeholder="Search Pokémon by name"
-      className="border p-2 mb-4 w-full"
+      className="border-2 border-gray-300 rounded-lg p-3 mb-6 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   );
 };

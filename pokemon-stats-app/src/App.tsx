@@ -6,6 +6,7 @@ import FilterByType from "./components/FilterByType";
 import SortOptions from "./components/SortOptions";
 import Pagination from "./components/Pagination";
 import PokemonList from "./components/PokemonList";
+import StatSearch from "./components/StatSearch"; // Import the updated StatSearch component
 
 const App: React.FC = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
@@ -14,7 +15,9 @@ const App: React.FC = () => {
   const [selectedType, setSelectedType] = useState("");
   const [sortOption, setSortOption] = useState("name");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [statName, setStatName] = useState<string>("");
+  const [statValue, setStatValue] = useState<number | string>("");
+  const itemsPerPage = 9;
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -33,7 +36,7 @@ const App: React.FC = () => {
             name: pokemonData.name,
             types: pokemonData.types,
             stats: pokemonData.stats,
-            image: pokemonData.sprites.front_default, // Get the front-facing image
+            image: pokemonData.sprites.front_default,
           };
         })
       );
@@ -50,10 +53,36 @@ const App: React.FC = () => {
   const handleSort = (option: string) => setSortOption(option);
   const handlePageChange = (page: number) => setCurrentPage(page);
 
-  // Apply search, filter, and sort
-  const filteredPokemon = pokemonList.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchTerm)
-  );
+  // Handle stat search
+  const handleStatSearch = (name: string, value: number | string) => {
+    if (name === "" && value === "") {
+      // Reset stat filters when no stat name or value is provided
+      setStatName("");
+      setStatValue("");
+    } else {
+      setStatName(name);
+      setStatValue(value);
+    }
+  };
+
+  // Apply search, filter, and stat filter
+  const filteredPokemon = pokemonList.filter((pokemon) => {
+    const matchesSearch = pokemon.name.toLowerCase().includes(searchTerm);
+    const matchesType =
+      !selectedType ||
+      pokemon.types.some((type) => type.type.name === selectedType);
+
+    const matchesStat =
+      !statName || !statValue
+        ? true
+        : pokemon.stats.some(
+            (stat) =>
+              stat.stat.name.toLowerCase() === statName.toLowerCase() &&
+              stat.base_stat > Number(statValue)
+          );
+
+    return matchesSearch && matchesType && matchesStat;
+  });
 
   // Sort filtered Pokémon list
   const sortedPokemon = [...filteredPokemon].sort((a, b) => {
@@ -65,7 +94,6 @@ const App: React.FC = () => {
     return bStat - aStat;
   });
 
-  // Pagination calculations
   const totalPages = Math.ceil(sortedPokemon.length / itemsPerPage);
   const paginatedPokemon = sortedPokemon.slice(
     (currentPage - 1) * itemsPerPage,
@@ -74,10 +102,25 @@ const App: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Pokémon List</h1>
+      <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
+        Pokémon List
+      </h1>
       <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+      <StatSearch onStatSearch={handleStatSearch} />{" "}
+      {/* Use the StatSearch component */}
       <FilterByType
-        types={["fire", "water", "grass"]}
+        types={[
+          "fire",
+          "water",
+          "grass",
+          "normal",
+          "flying",
+          "ground",
+          "ghost",
+          "ice",
+          "rock",
+          "poison",
+        ]}
         selectedType={selectedType}
         onFilter={handleFilter}
       />
