@@ -105,26 +105,60 @@ const App: React.FC = () => {
       <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
         Pokémon List
       </h1>
-      <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
-      <StatSearch onStatSearch={handleStatSearch} />{" "}
-      {/* Use the StatSearch component */}
-      <FilterByType
-        types={[
-          "fire",
-          "water",
-          "grass",
-          "normal",
-          "flying",
-          "ground",
-          "ghost",
-          "ice",
-          "rock",
-          "poison",
-        ]}
-        selectedType={selectedType}
-        onFilter={handleFilter}
-      />
-      <SortOptions sortOption={sortOption} onSort={handleSort} />
+
+      {/* Search for a Pokémon */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-center space-y-2 md:space-y-0 md:space-x-4 mb-4">
+        <div className="flex-1 max-w-md">
+          <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+        </div>
+      </div>
+
+      {/* Search By (StatSearch) */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+          Search By:
+        </h3>
+        <div className="flex flex-col sm:flex-row sm:space-x-2 max-w-xs">
+          <StatSearch onStatSearch={handleStatSearch} />
+        </div>
+      </div>
+
+      {/* Filter By (FilterByType) */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+          Filter By:
+        </h3>
+        <div className="flex-1 max-w-xs">
+          <FilterByType
+            types={[
+              "fire",
+              "water",
+              "grass",
+              "normal",
+              "flying",
+              "ground",
+              "ghost",
+              "ice",
+              "rock",
+              "poison",
+            ]}
+            selectedType={selectedType}
+            onFilter={handleFilter}
+          />
+        </div>
+      </div>
+
+      {/* Sort By (SortOptions) */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+          Sort By:
+        </h3>
+        <div className="flex-1 max-w-xs">
+          <SortOptions sortOption={sortOption} onSort={handleSort} />
+        </div>
+      </div>
+
+      {/* Pokémon List and Pagination */}
       {loading ? (
         <p>Loading...</p>
       ) : (
