@@ -37,7 +37,7 @@ const App: React.FC = () => {
         selectedType={selectedType}
         onFilter={handleFilter}
       />{" "}
-      <h3 className="text-black font-bold">Sort By :</h3>
+      <h3 className="text-black font-bold mt-4">Sort By :</h3>
       <SortOptions sortOption={sortOption} onSort={handleSort} />
       {loading ? (
         <p>Loading...</p>
