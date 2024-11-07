@@ -34,15 +34,15 @@ This Pokémon web application is built to display Pokémon data in an interactiv
 
 - **Change to the project directory:**
    ```bash
-cd pokemon-app
+   cd pokemon-app
 
 - **Install dependencies:**
    ```bash
-npm install
+   npm install
 
-- ** Start the development server:**
-  ```bash
-npm start
+- **Start the server:**
+   ```bash
+   npm start
 
 - **Open your browser and go to http:**
   //localhost:3000 to view the application.
