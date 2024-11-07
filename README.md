@@ -30,18 +30,18 @@ This Pokémon web application is built to display Pokémon data in an interactiv
 
 - **Clone the repository:**
    ```bash
-   https://github.com/zaghla-yassine/Pokemon_test.git
+  git clone https://github.com/zaghla-yassine/Pokemon_test.git
 
 - **Change to the project directory:**
-```bash
+   ```bash
 cd pokemon-app
 
 - **Install dependencies:**
-```bash
+   ```bash
 npm install
 
 - ** Start the development server:**
-```bash
+  ```bash
 npm start
 
 - **Open your browser and go to http:**
