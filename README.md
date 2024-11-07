@@ -45,7 +45,7 @@ This Pokémon web application is built to display Pokémon data in an interactiv
 *Search by Stat Range: Input a stat name and minimum value to filter Pokémon based on the selected stat's value.
 *Pagination: Use the pagination component at the bottom to navigate through pages.
 
-## 4.Components
+## 5.Components
 The app is organized with reusable components for easy maintenance and scalability:
 . **App.tsx:** Main component that manages the application’s state and renders other components.
 . **SearchBar.tsx:** Input component for searching Pokémon by name.
