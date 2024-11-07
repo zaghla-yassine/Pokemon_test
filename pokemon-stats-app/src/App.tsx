@@ -109,18 +109,14 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
-          Search By:
-        </h3>
+        <h3 className="text-xl font-bold text-black">Search By:</h3>
         <div className="flex flex-col sm:flex-row sm:space-x-2 max-w-xs">
           <StatSearch onStatSearch={handleStatSearch} />
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
-          Filter By:
-        </h3>
+        <h3 className="text-xl font-bold text-black">Filter By:</h3>
         <div className="flex-1 max-w-xs">
           <FilterByType
             types={[
@@ -142,9 +138,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
-          Sort By:
-        </h3>
+        <h3 className="text-xl font-bold text-black">Sort By:</h3>
         <div className="flex-1 max-w-xs">
           <SortOptions sortOption={sortOption} onSort={handleSort} />
         </div>
