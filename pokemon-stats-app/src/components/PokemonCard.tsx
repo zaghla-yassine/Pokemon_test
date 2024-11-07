@@ -1,4 +1,3 @@
-// src/components/PokemonCard.tsx
 
 import React from "react";
 import { Pokemon } from "../types";
@@ -10,11 +9,10 @@ interface PokemonCardProps {
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const types = pokemon.types || [];
   const stats = pokemon.stats || [];
-  const image = pokemon.image || ""; // Get the Pokémon's image
+  const image = pokemon.image || "";
 
   return (
     <div className="border border-gray-300 rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow transform hover:scale-105">
-      {/* Ensure the image source is correct */}
       <figure className="container-card-img position-relative my-2 flex justify-center items-center">
         <img src={image} alt={pokemon.name} />
       </figure>
@@ -33,7 +31,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             >
               <span className="capitalize font-medium">{stat.stat.name}:</span>
               <span className="text-right">{stat.base_stat}</span>{" "}
-              {/* Align the value to the right */}
             </li>
           ))}
         </ul>
@@ -42,8 +39,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       {types.length > 0 && (
         <div className="flex flex-wrap space-x-2 justify-center mt-2">
           {types.map((type, index) => {
-            const typeName = type.type.name.toLowerCase(); // Ensure the type name is lowercase
-            // List of valid Pokémon types and their corresponding colors
+            const typeName = type.type.name.toLowerCase();
             const typeColors: { [key: string]: string } = {
               fire: "bg-red-500",
               water: "bg-blue-500",
@@ -62,7 +58,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               rock: "bg-stone-500",
             };
 
-            // Check if the type is in the valid types, otherwise fallback to a default color
             const bgColorClass = typeColors[typeName] || "bg-gray-500";
 
             return (

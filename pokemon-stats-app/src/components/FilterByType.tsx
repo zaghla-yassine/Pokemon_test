@@ -1,4 +1,3 @@
-// src/components/FilterByType.tsx
 import React from "react";
 
 interface FilterByTypeProps {

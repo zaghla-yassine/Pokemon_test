@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useEffect, useState } from "react";
 import { Pokemon } from "./types";
 import SearchBar from "./components/SearchBar";
@@ -6,7 +5,7 @@ import FilterByType from "./components/FilterByType";
 import SortOptions from "./components/SortOptions";
 import Pagination from "./components/Pagination";
 import PokemonList from "./components/PokemonList";
-import StatSearch from "./components/StatSearch"; // Import the updated StatSearch component
+import StatSearch from "./components/StatSearch";
 
 const App: React.FC = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
@@ -27,7 +26,6 @@ const App: React.FC = () => {
       );
       const data = await response.json();
 
-      // Fetch detailed Pokémon data (including types and stats) for each Pokémon
       const pokemonDetails = await Promise.all(
         data.results.map(async (pokemon: any) => {
           const detailResponse = await fetch(pokemon.url);
@@ -48,15 +46,15 @@ const App: React.FC = () => {
     fetchPokemon();
   }, []);
 
-  const handleSearch = (term: string) => setSearchTerm(term.toLowerCase());
+  const handleSearch = (term: string) => {
+    setSearchTerm(term.toLowerCase());
+    setCurrentPage(1);
+  };
   const handleFilter = (type: string) => setSelectedType(type);
   const handleSort = (option: string) => setSortOption(option);
   const handlePageChange = (page: number) => setCurrentPage(page);
-
-  // Handle stat search
   const handleStatSearch = (name: string, value: number | string) => {
     if (name === "" && value === "") {
-      // Reset stat filters when no stat name or value is provided
       setStatName("");
       setStatValue("");
     } else {
@@ -65,7 +63,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Apply search, filter, and stat filter
   const filteredPokemon = pokemonList.filter((pokemon) => {
     const matchesSearch = pokemon.name.toLowerCase().includes(searchTerm);
     const matchesType =
@@ -84,7 +81,6 @@ const App: React.FC = () => {
     return matchesSearch && matchesType && matchesStat;
   });
 
-  // Sort filtered Pokémon list
   const sortedPokemon = [...filteredPokemon].sort((a, b) => {
     if (sortOption === "name") return a.name.localeCompare(b.name);
     const aStat =
@@ -106,14 +102,12 @@ const App: React.FC = () => {
         Pokémon List
       </h1>
 
-      {/* Search for a Pokémon */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-center space-y-2 md:space-y-0 md:space-x-4 mb-4">
         <div className="flex-1 max-w-md">
           <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
         </div>
       </div>
 
-      {/* Search By (StatSearch) */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
         <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
           Search By:
@@ -123,7 +117,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Filter By (FilterByType) */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
         <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
           Filter By:
@@ -148,7 +141,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Sort By (SortOptions) */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
         <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
           Sort By:
@@ -158,7 +150,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Pokémon List and Pagination */}
       {loading ? (
         <p>Loading...</p>
       ) : (

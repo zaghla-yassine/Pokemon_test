@@ -1,4 +1,3 @@
-// src/components/PokemonList.tsx
 import React from "react";
 import { Pokemon } from "../types";
 import PokemonCard from "./PokemonCard";

@@ -1,4 +1,3 @@
-// src/components/SearchBar.tsx
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -10,9 +9,11 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearch }) => {
   return (
     <div className="mb-6 w-full max-w-md mx-auto mt-6">
-      <div className="flex items-center space-x-4">
-        <h6 className="text-xl font-bold">Search for a Pokémon :</h6>
-        <div className="relative flex-1">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+        <h6 className="text-xl font-bold mb-2 sm:mb-0 sm:text-left text-center">
+          Search for a Pokémon:
+        </h6>
+        <div className="relative flex-1 max-w-xs mx-auto sm:mx-0">
           <input
             type="text"
             value={searchTerm}
