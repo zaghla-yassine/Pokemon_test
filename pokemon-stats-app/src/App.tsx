@@ -109,7 +109,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
           Search By:
         </h3>
         <div className="flex flex-col sm:flex-row sm:space-x-2 max-w-xs">
@@ -118,7 +118,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
           Filter By:
         </h3>
         <div className="flex-1 max-w-xs">
@@ -142,7 +142,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-left space-y-2 md:space-y-0 md:space-x-4 mb-4">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r text-black">
           Sort By:
         </h3>
         <div className="flex-1 max-w-xs">
@@ -152,14 +152,18 @@ const App: React.FC = () => {
 
       {loading ? (
         <p>Loading...</p>
+      ) : paginatedPokemon.length > 0 ? (
+        <>
+          <PokemonList pokemonList={paginatedPokemon} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
       ) : (
-        <PokemonList pokemonList={paginatedPokemon} />
+        <p className="text-center text-gray-600 text-lg mt-8">No data found.</p>
       )}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 };

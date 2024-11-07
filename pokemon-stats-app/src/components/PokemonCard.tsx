@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Pokemon } from "../types";
 
@@ -21,7 +20,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         {pokemon.name}
       </h2>
 
-      {/* Display Stats */}
       {stats.length > 0 && (
         <ul className="mt-4 space-y-2 grid place-items-center">
           {stats.map((stat, index) => (
@@ -35,7 +33,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           ))}
         </ul>
       )}
-      {/* Display Types */}
       {types.length > 0 && (
         <div className="flex flex-wrap space-x-2 justify-center mt-2">
           {types.map((type, index) => {
