@@ -30,6 +30,8 @@ This Pokémon web application is built to display Pokémon data in an interactiv
 
  **Clone the repository:**
    git clone https://github.com/zaghla-yassine/Pokemon_test.git
+**Change to the project directory:**
+   cd pokemon-app
  **Install dependencies**
     npm install
  **Start the development server:** 
@@ -38,19 +40,47 @@ This Pokémon web application is built to display Pokémon data in an interactiv
   //localhost:3000 to view the application.
 
 ## 4. Usage
-. **Main Functionalities:**
-*Search by Name: Use the search bar at the top to search for Pokémon by name. Enter a name, and the list will filter automatically to show matching Pokémon. //
-*Filter by Type: Use the dropdown to filter Pokémon by type. This narrows down the list to show only Pokémon of the selected type.//
-*Sort by Stat: Select a stat (e.g., Attack, Speed) to sort the Pokémon list based on that stat in descending order.//
-*Search by Stat Range: Input a stat name and minimum value to filter Pokémon based on the selected stat's value.//
-*Pagination: Use the pagination component at the bottom to navigate through pages.
 
-## 5.Components
+**Main Functionalities:**
+
+- **Search by Name:**  
+  Use the search bar at the top to search for Pokémon by name. Enter a name, and the list will filter automatically to show matching Pokémon.
+
+- **Filter by Type:**  
+  Use the dropdown to filter Pokémon by type. This narrows down the list to show only Pokémon of the selected type.
+
+- **Sort by Stat:**  
+  Select a stat (e.g., Attack, Speed) to sort the Pokémon list based on that stat in descending order.
+
+- **Search by Stat Range:**  
+  Input a stat name and minimum value to filter Pokémon based on the selected stat's value.
+
+- **Pagination:**  
+  Use the pagination component at the bottom to navigate through pages.
+
+
+## 5. Components
+
 The app is organized with reusable components for easy maintenance and scalability:
-. **App.tsx:** Main component that manages the application’s state and renders other components.//
-. **SearchBar.tsx:** Input component for searching Pokémon by name.//
-. **FilterByType.tsx:** Dropdown component for filtering Pokémon by type.//
-. **SortOptions.tsx:** Component for selecting stat-based sorting options.//
-. **StatSearch.tsx:** Component for searching Pokémon by specific stat values.//
-. **PokemonList.tsx:** Renders the list of Pokémon cards.//
-. **Pagination.tsx:** Component for pagination controls.
+
+- **App.tsx:**  
+  Main component that manages the application’s state and renders other components.
+
+- **SearchBar.tsx:**  
+  Input component for searching Pokémon by name.
+
+- **FilterByType.tsx:**  
+  Dropdown component for filtering Pokémon by type.
+
+- **SortOptions.tsx:**  
+  Component for selecting stat-based sorting options.
+
+- **StatSearch.tsx:**  
+  Component for searching Pokémon by specific stat values.
+
+- **PokemonList.tsx:**  
+  Renders the list of Pokémon cards.
+
+- **Pagination.tsx:**  
+  Component for pagination controls.
+
