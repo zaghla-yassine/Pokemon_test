@@ -27,6 +27,7 @@ const StatSearch: React.FC<StatSearchProps> = ({ onStatSearch }) => {
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 mb-4">
+      <h3 className="text-black font-bold">Search By :</h3>
       <select
         value={statName}
         onChange={(e) => setStatName(e.target.value)}

@@ -10,7 +10,7 @@ const SortOptions: React.FC<SortOptionsProps> = ({ sortOption, onSort }) => {
     <select
       value={sortOption}
       onChange={(e) => onSort(e.target.value)}
-      className="border p-2 mb-4 w-full"
+      className="px-4 py-2 border rounded-lg max-w-xs w-full"
     >
       <option value="name">Name</option>
       <option value="hp">HP</option>

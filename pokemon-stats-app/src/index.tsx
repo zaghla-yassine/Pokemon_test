@@ -4,11 +4,7 @@ import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
-const client = new ApolloClient({
-  uri: "https://pokeapi.co/api/v2/pokemon/ditto",
-  cache: new InMemoryCache(),
-});
+import client from "./api/client";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
