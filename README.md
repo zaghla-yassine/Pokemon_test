@@ -34,7 +34,7 @@ This Pokémon web application is built to display Pokémon data in an interactiv
 
 - **Change to the project directory:**
    ```bash
-   cd pokemon-app
+   cd pokemon-stats-app
 
 - **Install dependencies:**
    ```bash
