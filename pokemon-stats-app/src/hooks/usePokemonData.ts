@@ -7,7 +7,7 @@ const usePokemonData = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  const [sortOption, setSortOption] = useState("name");
+  const [sortOption, setSortOption] = useState("none");
   const [statName, setStatName] = useState("");
   const [statValue, setStatValue] = useState<number | string>("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,14 +51,16 @@ const usePokemonData = () => {
       return matchesSearch && matchesType && matchesStat;
     });
 
-    filteredList = filteredList.sort((a, b) => {
-      if (sortOption === "name") return a.name.localeCompare(b.name);
-      const aStat =
-        a.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
-      const bStat =
-        b.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
-      return bStat - aStat;
-    });
+    if (sortOption !== "none") {
+      filteredList = filteredList.sort((a, b) => {
+        if (sortOption === "name") return a.name.localeCompare(b.name);
+        const aStat =
+          a.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
+        const bStat =
+          b.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
+        return bStat - aStat;
+      });
+    }
 
     return filteredList;
   }, [pokemonList, searchTerm, selectedType, sortOption, statName, statValue]);
