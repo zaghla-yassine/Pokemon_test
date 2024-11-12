@@ -89,6 +89,10 @@ The app is organized with reusable components for easy maintenance and scalabili
 - **PokemonList.tsx:**  
   Renders the list of Pokémon cards.
 
-- **Pagination.tsx:**  
-  Component for pagination controls.
+  ## 6. Additional Notes:
+  - **Data Caching and pagination:**
+    By using React Query, this app caches each page of Pokémon data, allowing users to seamlessly navigate between pages without refetching data unnecessarily. Cached data remains available as specified by the stale time.
+  - **Error Handling:**
+   The app provides error messages when data cannot be fetched, enhancing user experience and reliability.
+
 
