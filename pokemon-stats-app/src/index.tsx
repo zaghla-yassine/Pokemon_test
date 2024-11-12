@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import client from "./api/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <QueryClientProvider client={queryClient}>
     <App />
-  </ApolloProvider>,
+  </QueryClientProvider>,
   document.getElementById("root")
 );
 

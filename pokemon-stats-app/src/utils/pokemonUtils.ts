@@ -1,7 +1,17 @@
 import { Pokemon } from "../types";
 
-export const fetchPokemonData = async (): Promise<Pokemon[]> => {
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
+export const fetchPokemonData = async (
+  limit: number = 20,
+  offset: number = 0
+): Promise<Pokemon[]> => {
+  const response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch Pokémon data");
+  }
+
   const data = await response.json();
 
   const pokemonDetails = await Promise.all(

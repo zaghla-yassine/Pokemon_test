@@ -1,85 +1,88 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPokemonData } from "../utils/pokemonUtils";
 import { Pokemon } from "../types";
-import {
-  fetchPokemonData,
-  filterPokemon,
-  sortPokemon,
-  paginatePokemon,
-} from "../utils/pokemonUtils";
 
 const usePokemonData = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [sortOption, setSortOption] = useState("name");
-  const [currentPage, setCurrentPage] = useState(1);
   const [statName, setStatName] = useState("");
   const [statValue, setStatValue] = useState<number | string>("");
-  const itemsPerPage = 9;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 20;
+
+  const {
+    data: newPokemonList = [],
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["pokemonData", currentPage],
+    queryFn: () =>
+      fetchPokemonData(itemsPerPage, (currentPage - 1) * itemsPerPage),
+    staleTime: 60000,
+  });
 
   useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      const data = await fetchPokemonData();
-      setPokemonList(data);
-      setLoading(false);
-    };
-
-    loadData();
-  }, []);
-
-  const handleSearch = (term: string) => {
-    setSearchTerm(term.toLowerCase());
-    setCurrentPage(1);
-  };
-  const handleFilter = (type: string) => {
-    setSelectedType(type);
-    setCurrentPage(1);
-  };
-  const handleSort = (option: string) => {
-    setSortOption(option);
-    setCurrentPage(1);
-  };
-  const handlePageChange = (page: number) => setCurrentPage(page);
-  const handleStatSearch = (name: string, value: number | string) => {
-    if (name === "" && value === "") {
-      setStatName("");
-      setStatValue("");
-    } else {
-      setStatName(name);
-      setStatValue(value);
+    if (newPokemonList.length > 0) {
+      setPokemonList((prevList) => [...prevList, ...newPokemonList]);
     }
-    setCurrentPage(1);
-  };
+  }, [newPokemonList]);
 
-  const filteredPokemon = filterPokemon(
-    pokemonList,
-    searchTerm,
-    selectedType,
-    statName,
-    statValue
-  );
-  const sortedPokemon = sortPokemon(filteredPokemon, sortOption);
-  const paginatedPokemon = paginatePokemon(
-    sortedPokemon,
-    currentPage,
-    itemsPerPage
-  );
-  const totalPages = Math.ceil(sortedPokemon.length / itemsPerPage);
+  const filteredPokemonList = useMemo(() => {
+    let filteredList = pokemonList.filter((pokemon) => {
+      const matchesSearch = pokemon.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesType =
+        !selectedType ||
+        pokemon.types.some((type) => type.type.name === selectedType);
+      const matchesStat =
+        !statName || !statValue
+          ? true
+          : pokemon.stats.some(
+              (stat) =>
+                stat.stat.name.toLowerCase() === statName.toLowerCase() &&
+                stat.base_stat >= Number(statValue)
+            );
+
+      return matchesSearch && matchesType && matchesStat;
+    });
+
+    filteredList = filteredList.sort((a, b) => {
+      if (sortOption === "name") return a.name.localeCompare(b.name);
+      const aStat =
+        a.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
+      const bStat =
+        b.stats.find((stat) => stat.stat.name === sortOption)?.base_stat || 0;
+      return bStat - aStat;
+    });
+
+    return filteredList;
+  }, [pokemonList, searchTerm, selectedType, sortOption, statName, statValue]);
+
+  const handleSearch = (term: string) => setSearchTerm(term);
+  const handleFilter = (type: string) => setSelectedType(type);
+  const handleSort = (option: string) => setSortOption(option);
+  const handleStatSearch = (name: string, value: number | string) => {
+    setStatName(name);
+    setStatValue(value);
+  };
+  const loadNextPage = () => setCurrentPage((prevPage) => prevPage + 1);
 
   return {
-    pokemonList: paginatedPokemon,
-    loading,
+    pokemonList: filteredPokemonList,
+    loading: isLoading,
+    error,
+    loadNextPage,
     searchTerm,
     selectedType,
     sortOption,
-    currentPage,
-    totalPages,
     handleSearch,
     handleFilter,
     handleSort,
-    handlePageChange,
     handleStatSearch,
   };
 };
